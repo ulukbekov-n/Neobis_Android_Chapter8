@@ -56,14 +56,14 @@ class LoginFragment:Fragment() {
         binding.loginButton.setOnClickListener {
             val userName = editTextUserName.text.toString().trim()
             val password = editTextPassword.text.toString().trim()
-
             if (userName.isEmpty() || password.isEmpty()) {
-                // Display a warning message here, e.g., a Toast
                 Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_SHORT).show()
             } else {
-                // Perform the login action
-                findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+                findNavController().navigate(R.id.action_loginFragment_to_profileMainFragment)
             }
+        }
+        binding.signUpButton.setOnClickListener{
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
         editTextUserName.addTextChangedListener(textWatcher)
         editTextPassword.addTextChangedListener(textWatcher)

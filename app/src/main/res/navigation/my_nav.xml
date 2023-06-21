@@ -12,9 +12,20 @@
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_profileMainFragment"
+            app:destination="@id/profileMainFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.mobimarket.fragments.RegisterFragment"
-        android:label="RegisterFragment" />
+        android:label="RegisterFragment" >
+        <action
+            android:id="@+id/action_registerFragment_to_profileMainFragment"
+            app:destination="@id/profileMainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileMainFragment"
+        android:name="com.example.mobimarket.fragments.ProfileMainFragment"
+        android:label="ProfileMainFragment" />
 </navigation>
