@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/arrowback"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/phoneImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="120dp"
+        android:src="@drawable/phoneimage"
+        />
+    <TextView
+        android:id="@+id/textAddNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Введите номер телефона"
+        app:layout_constraintTop_toBottomOf="@+id/phoneImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="20sp"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/nunito_bold"
+        android:textFontWeight="400"
+        android:textColor="#494949"/>
+    <TextView
+        android:id="@+id/textSMS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Мы отправим вам СМС с кодом\n
+         подтверждения"
+        app:layout_constraintTop_toBottomOf="@+id/textAddNumber"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="16sp"
+        android:fontFamily="@font/nunito_bold"
+        android:textFontWeight="400"
+        android:textColor="#C0C0C0"/>
+    <EditText
+        android:id="@+id/addingPhoneNumberInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:textColor="#494949"
+        android:textSize="28sp"
+        android:hint="0 (000) 000 000"
+        android:textColorHint="#C0C0C0"
+        app:layout_constraintTop_toBottomOf="@id/textSMS"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@android:color/transparent"
+        android:inputType="phone"
+        android:fontFamily="@font/nunito_bold"
+        android:textFontWeight="700"
+        tools:targetApi="p" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="320dp"
+        android:layout_height="44dp"
+        app:backgroundTint="@null"
+        android:text="Далее"
+        android:textColor="@color/white"
+        android:backgroundTint="#C0C0C0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addingPhoneNumberInput"
+        android:enabled="false"
+        android:background="@drawable/back"
+        android:layout_marginTop="72dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

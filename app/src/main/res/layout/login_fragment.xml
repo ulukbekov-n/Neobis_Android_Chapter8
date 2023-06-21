@@ -28,7 +28,7 @@
         tools:targetApi="p" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/inputEmail"
+        android:id="@+id/inputUserName"
         android:layout_width="320dp"
         android:layout_height="60dp"
         android:layout_marginTop="60dp"
@@ -39,7 +39,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/shopCart">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/loginEmail"
+            android:id="@+id/loginUserName"
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
         app:passwordToggleEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputEmail">
+        app:layout_constraintTop_toBottomOf="@+id/inputUserName">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/loginPassword"
             android:background="@color/white"
@@ -77,12 +77,11 @@
         app:backgroundTint="@null"
         android:text="Войти"
         android:textColor="@color/white"
-        android:backgroundTint="#C0C0C0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/inputPassword"
         android:enabled="false"
-        android:background="@drawable/back"
+        android:background="@drawable/enabled_back"
         android:layout_marginTop="60dp"/>
 
     <TextView

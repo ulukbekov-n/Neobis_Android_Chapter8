@@ -13,7 +13,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="60dp"/>
-
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/arrowback"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,7 +34,7 @@
         tools:targetApi="p" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/inputEmail"
+        android:id="@+id/inputUserName"
         android:layout_width="320dp"
         android:layout_height="60dp"
         android:layout_marginTop="60dp"
@@ -39,7 +45,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/shopCart">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/loginEmail"
+            android:id="@+id/loginUserName"
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -59,7 +65,7 @@
         app:passwordToggleEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputEmail">
+        app:layout_constraintTop_toBottomOf="@+id/inputUserName">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/loginPassword"
             android:background="@color/white"
@@ -85,19 +91,6 @@
         android:background="@drawable/back"
         android:layout_marginTop="60dp"/>
 
-    <TextView
-        android:id="@+id/forgotPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Зарегистрироваться"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="41dp"
-        android:textColor="#5458EA"
-        android:clickable="true"
-        android:focusable="true" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
