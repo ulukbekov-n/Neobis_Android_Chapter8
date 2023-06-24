@@ -13,19 +13,71 @@
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_profileMainFragment"
-            app:destination="@id/profileMainFragment" />
+            android:id="@+id/action_loginFragment_to_mainBottomNavigationFragment"
+            app:destination="@id/mainBottomNavigationFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.mobimarket.fragments.RegisterFragment"
         android:label="RegisterFragment" >
         <action
-            android:id="@+id/action_registerFragment_to_profileMainFragment"
+            android:id="@+id/action_registerFragment_to_mainBottomNavigationFragment"
+            app:destination="@id/mainBottomNavigationFragment" />
+        <action
+            android:id="@+id/action_registerFragment_to_createPasswordFragment"
+            app:destination="@id/createPasswordFragment" />
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainBottomNavigationFragment"
+        android:name="com.example.mobimarket.fragments.MainBottomNavigationFragment"
+        android:label="MainBottomNavigationFragment" />
+    <fragment
+        android:id="@+id/createPasswordFragment"
+        android:name="com.example.mobimarket.fragments.CreatePasswordFragment"
+        android:label="CreatePasswordFragment" >
+        <action
+            android:id="@+id/action_createPasswordFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/changeProfileFragment"
+        android:name="com.example.mobimarket.fragments.ChangeProfileFragment"
+        android:label="ChangeProfileFragment" >
+        <action
+            android:id="@+id/action_changeProfileFragment_to_profileMainFragment"
             app:destination="@id/profileMainFragment" />
+        <action
+            android:id="@+id/action_changeProfileFragment_to_addingNumberFragment"
+            app:destination="@id/addingNumberFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileMainFragment"
         android:name="com.example.mobimarket.fragments.ProfileMainFragment"
-        android:label="ProfileMainFragment" />
+        android:label="ProfileMainFragment" >
+        <action
+            android:id="@+id/action_profileMainFragment_to_changeProfileFragment"
+            app:destination="@id/changeProfileFragment" />
+        <action
+            android:id="@+id/action_profileMainFragment_to_changeProfileFragment2"
+            app:destination="@id/changeProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addingNumberFragment"
+        android:name="com.example.mobimarket.fragments.AddingNumberFragment"
+        android:label="AddingNumberFragment" >
+        <action
+            android:id="@+id/action_addingNumberFragment_to_changeProfileFragment"
+            app:destination="@id/changeProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myChatsFragment"
+        android:name="com.example.mobimarket.fragments.MyChatsFragment"
+        android:label="MyChatsFragment" />
+    <fragment
+        android:id="@+id/myWalletFragment"
+        android:name="com.example.mobimarket.fragments.MyWalletFragment"
+        android:label="MyWalletFragment" />
 </navigation>

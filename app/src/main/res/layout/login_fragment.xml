@@ -81,7 +81,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/inputPassword"
         android:enabled="false"
-        android:background="@drawable/enabled_back"
+        android:background="@drawable/back"
         android:layout_marginTop="60dp"/>
 
     <TextView

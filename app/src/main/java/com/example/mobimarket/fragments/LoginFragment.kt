@@ -59,7 +59,7 @@ class LoginFragment:Fragment() {
             if (userName.isEmpty() || password.isEmpty()) {
                 Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_SHORT).show()
             } else {
-                findNavController().navigate(R.id.action_loginFragment_to_profileMainFragment)
+                findNavController().navigate(R.id.action_loginFragment_to_mainBottomNavigationFragment)
             }
         }
         binding.signUpButton.setOnClickListener{

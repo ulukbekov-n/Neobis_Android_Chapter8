@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/myHome"
+    <item android:id="@+id/registerFragment"
         android:title="Главная"
-        android:icon="@drawable/home"/>
+        android:icon="@drawable/home_04"/>
 
-    <item android:id="@+id/myWallet"
+    <item android:id="@+id/myWalletFragment"
         android:title="Кошелек"
-        android:icon="@drawable/tab"/>
-
-    <item android:id="@+id/myChat"
-        android:title="Чаты"
         android:icon="@drawable/wallet"/>
 
-    <item android:id="@+id/myProfile"
+    <item android:id="@+id/placeHolder"
+        android:title=""/>
+
+    <item android:id="@+id/myChatsFragment"
+        android:title="Чаты"
+
+        android:icon="@drawable/chat_02"/>
+
+    <item android:id="@+id/profileMainFragment"
         android:title="Профиль"
-        android:icon="@drawable/profile"/>
+        android:icon="@drawable/user"/>
 </menu>
