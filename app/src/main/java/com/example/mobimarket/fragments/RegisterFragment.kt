@@ -41,8 +41,8 @@ class RegisterFragment : Fragment() {
 
             override fun afterTextChanged(p0: Editable?) {
                 val userName = editTextUserName.text.toString().trim()
-                val password = editTextEmail.text.toString().trim()
-                val enableButton = userName.isNotEmpty() && password.isNotEmpty()
+                val email = editTextEmail.text.toString().trim()
+                val enableButton = userName.isNotEmpty() && email.isNotEmpty()
                 button.isEnabled = enableButton
                 if (enableButton) {
                     button.setBackgroundResource(R.drawable.enabled_back)

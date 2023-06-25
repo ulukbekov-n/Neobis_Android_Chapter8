@@ -1,14 +1,13 @@
-package com.example.mobimarket
+package com.example.mobimarket.view
 
 import android.content.Intent
-import android.os.Binder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.WindowManager
+import com.example.mobimarket.R
 import com.example.mobimarket.databinding.ActivitySplashScreenBinding
-import com.example.mobimarket.fragments.LoginFragment
 
 class SplashScreen : AppCompatActivity() {
     private lateinit var binding:ActivitySplashScreenBinding
@@ -22,7 +21,7 @@ class SplashScreen : AppCompatActivity() {
         )
 
         Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this,MainActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         },3000)

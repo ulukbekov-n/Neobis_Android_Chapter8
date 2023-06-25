@@ -1,7 +1,8 @@
-package com.example.mobimarket
+package com.example.mobimarket.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.mobimarket.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
