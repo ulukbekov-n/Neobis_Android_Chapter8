@@ -15,29 +15,25 @@ import com.example.mobimarket.R
 import com.example.mobimarket.databinding.RegisterFragmentBinding
 
 class RegisterFragment : Fragment() {
-    private lateinit var binding:RegisterFragmentBinding
-    lateinit var editTextUserName: EditText
-    lateinit var editTextEmail: EditText
-    lateinit var button: Button
-    lateinit var textWatcher: TextWatcher
+    private lateinit var binding: RegisterFragmentBinding
+    private lateinit var editTextUserName: EditText
+    private lateinit var editTextEmail: EditText
+    private lateinit var button: Button
+    private lateinit var textWatcher: TextWatcher
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = RegisterFragmentBinding.inflate(inflater,container,false)
+        binding = RegisterFragmentBinding.inflate(inflater, container, false)
         editTextUserName = binding.loginUserName
         editTextEmail = binding.loginEmail
         button = binding.registerButton
-        textWatcher = object: TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun afterTextChanged(p0: Editable?) {
                 val userName = editTextUserName.text.toString().trim()
@@ -46,23 +42,23 @@ class RegisterFragment : Fragment() {
                 button.isEnabled = enableButton
                 if (enableButton) {
                     button.setBackgroundResource(R.drawable.enabled_back)
-
                 } else {
-                    button.setBackgroundResource(R.drawable.back )
+                    button.setBackgroundResource(R.drawable.back)
                 }
             }
-
         }
         binding.registerButton.setOnClickListener {
             val userName = editTextUserName.text.toString().trim()
-            val password = editTextEmail.text.toString().trim()
-            if (userName.isEmpty() || password.isEmpty()) {
+            val email = editTextEmail.text.toString().trim()
+
+            if (userName.isEmpty() || email.isEmpty()) {
                 Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_SHORT).show()
             } else {
+
                 findNavController().navigate(R.id.action_registerFragment_to_createPasswordFragment)
             }
         }
-        binding.backButton.setOnClickListener{
+        binding.backButton.setOnClickListener {
             findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }
 
