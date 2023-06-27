@@ -34,7 +34,6 @@ class CreatePasswordFragment : Fragment() {
         editTextPasswordRepeat = binding.confirmPassword
         button = binding.registerButton
 
-
         binding.registerButton.setOnClickListener {
             val password = editTextPassword.text.toString().trim()
             val passwordRepeat = editTextPasswordRepeat.text.toString().trim()
@@ -50,20 +49,19 @@ class CreatePasswordFragment : Fragment() {
                 val registerRequest = RegisterRequest(userName, email, password, passwordRepeat)
                 val registerCall = apiService.register(registerRequest)
                 registerCall.enqueue(object : Callback<RegisterResponse> {
-                    override fun onResponse(
-                        call: Call<RegisterResponse>,
-                        response: Response<RegisterResponse>
-                    ) {
+                    override fun onResponse(call: Call<RegisterResponse>, response: Response<RegisterResponse>) {
                         if (response.isSuccessful) {
                             val registerResponse = response.body()
+                            Toast.makeText(context, "Registration successful", Toast.LENGTH_SHORT).show()
+                            findNavController().navigate(R.id.action_createPasswordFragment_to_profileMainFragment)
                         } else {
+                            val errorMessage = response.errorBody()?.string()
+                            Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
                         }
                     }
 
                     override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-                        Toast.makeText(context, "Network error occurred", Toast.LENGTH_SHORT)
-                            .show()
-
+                        Toast.makeText(context, "Registration failed. Please try again later.", Toast.LENGTH_SHORT).show()
                     }
                 })
             }
