@@ -10,9 +10,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.mobimarket.R
 import com.example.mobimarket.databinding.RegisterFragmentBinding
+import com.example.mobimarket.view_model.RegisterViewModel
 
 class RegisterFragment : Fragment() {
     private lateinit var binding: RegisterFragmentBinding
@@ -20,6 +23,8 @@ class RegisterFragment : Fragment() {
     private lateinit var editTextEmail: EditText
     private lateinit var button: Button
     private lateinit var textWatcher: TextWatcher
+
+    private lateinit var viewModel: RegisterViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,15 +43,24 @@ class RegisterFragment : Fragment() {
             override fun afterTextChanged(p0: Editable?) {
                 val userName = editTextUserName.text.toString().trim()
                 val email = editTextEmail.text.toString().trim()
-                val enableButton = userName.isNotEmpty() && email.isNotEmpty()
-                button.isEnabled = enableButton
-                if (enableButton) {
-                    button.setBackgroundResource(R.drawable.enabled_back)
-                } else {
-                    button.setBackgroundResource(R.drawable.back)
-                }
+                viewModel.onUsernameTextChanged(userName)
+                viewModel.onEmailTextChanged(email)
             }
         }
+
+
+        viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
+
+
+        viewModel.isButtonEnabled.observe(viewLifecycleOwner, Observer { isEnabled ->
+            button.isEnabled = isEnabled
+            if (isEnabled) {
+                button.setBackgroundResource(R.drawable.enabled_back)
+            } else {
+                button.setBackgroundResource(R.drawable.back)
+            }
+        })
+
         binding.registerButton.setOnClickListener {
             val userName = editTextUserName.text.toString().trim()
             val email = editTextEmail.text.toString().trim()
@@ -60,6 +74,7 @@ class RegisterFragment : Fragment() {
                 findNavController().navigate(R.id.action_registerFragment_to_createPasswordFragment, bundle)
             }
         }
+
         binding.backButton.setOnClickListener {
             findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }

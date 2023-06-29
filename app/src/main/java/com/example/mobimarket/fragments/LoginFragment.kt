@@ -1,3 +1,5 @@
+package com.example.mobimarket.fragments
+
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.mobimarket.R
 import com.example.mobimarket.data.LoginRequest
@@ -15,6 +18,7 @@ import com.example.mobimarket.data.LoginResponse
 import com.example.mobimarket.databinding.LoginFragmentBinding
 import com.example.mobimarket.utils.ApiClient
 import com.example.mobimarket.utils.ApiService
+import com.example.mobimarket.view_model.LoginViewModel
 
 import retrofit2.Call
 import retrofit2.Callback
@@ -27,6 +31,65 @@ class LoginFragment : Fragment() {
     private lateinit var button: Button
     private lateinit var textWatcher: TextWatcher
     private val apiService = ApiClient.createService(ApiService::class.java)
+    private val viewModel: LoginViewModel by lazy {
+        ViewModelProvider(this).get(LoginViewModel::class.java)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = LoginFragmentBinding.inflate(inflater, container, false)
+        editTextUserName = binding.loginUserName
+        editTextPassword = binding.loginPassword
+        button = binding.loginButton
+
+
+        viewModel.isButtonEnabled.observe(viewLifecycleOwner, { isEnabled ->
+            button.isEnabled = isEnabled
+            if (isEnabled) {
+                button.setBackgroundResource(R.drawable.enabled_back)
+            } else {
+                button.setBackgroundResource(R.drawable.back)
+            }
+        })
+
+        // Set up the button click listener
+        button.setOnClickListener {
+            val userName = editTextUserName.text.toString().trim()
+            val password = editTextPassword.text.toString().trim()
+            if (userName.isEmpty() || password.isEmpty()) {
+                Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+            } else {
+                loginUser(userName, password)
+            }
+        }
+
+        binding.signUpButton.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
+
+        // Set up the text change listener
+        textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun afterTextChanged(p0: Editable?) {
+                val userName = editTextUserName.text.toString().trim()
+                val password = editTextPassword.text.toString().trim()
+                viewModel.onUsernameTextChanged(userName)
+                viewModel.onPasswordTextChanged(password)
+            }
+        }
+
+        editTextUserName.addTextChangedListener(textWatcher)
+        editTextPassword.addTextChangedListener(textWatcher)
+
+        return binding.root
+    }
+
     private fun loginUser(username: String, password: String) {
         val loginRequest = LoginRequest(username, password)
         val loginCall = apiService.login(loginRequest)
@@ -47,50 +110,4 @@ class LoginFragment : Fragment() {
             }
         })
     }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = LoginFragmentBinding.inflate(inflater, container, false)
-        editTextUserName = binding.loginUserName
-        editTextPassword = binding.loginPassword
-        button = binding.loginButton
-        textWatcher = object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-            override fun afterTextChanged(p0: Editable?) {
-                val userName = editTextUserName.text.toString().trim()
-                val password = editTextPassword.text.toString().trim()
-                val enableButton = userName.isNotEmpty() && password.isNotEmpty()
-                button.isEnabled = enableButton
-                if (enableButton) {
-                    button.setBackgroundResource(R.drawable.enabled_back)
-                } else {
-                    button.setBackgroundResource(R.drawable.back)
-                }
-            }
-        }
-        binding.loginButton.setOnClickListener {
-            val userName = editTextUserName.text.toString().trim()
-            val password = editTextPassword.text.toString().trim()
-            if (userName.isEmpty() || password.isEmpty()) {
-                Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_SHORT).show()
-            } else {
-                loginUser(userName, password)
-            }
-        }
-        binding.signUpButton.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
-        }
-        editTextUserName.addTextChangedListener(textWatcher)
-        editTextPassword.addTextChangedListener(textWatcher)
-        return binding.root
-    }
-
-
 }
-
