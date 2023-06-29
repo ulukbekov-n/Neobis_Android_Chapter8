@@ -138,14 +138,14 @@ class CreatePasswordFragment : Fragment() {
                 if (response.isSuccessful) {
                     Toast.makeText(
                         requireContext(),
-                        "User successfully registered.",
+                        "Registered successfully",
                         Toast.LENGTH_SHORT
                     ).show()
                     findNavController().navigate(R.id.action_createPasswordFragment_to_profileMainFragment)
                 } else {
                     Toast.makeText(
                         requireContext(),
-                        "User with this email already exist",
+                        "Failed",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
