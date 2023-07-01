@@ -68,9 +68,13 @@ class RegisterFragment : Fragment() {
             if (userName.isEmpty() || email.isEmpty()) {
                 Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_SHORT).show()
             } else {
-                val bundle = Bundle()
-                bundle.putString("userName", userName)
-                bundle.putString("email", email)
+                val bundle = Bundle().apply {
+                    putString("userName", userName)
+                    putString("email", email)
+                }
+                val createPasswordFragment = CreatePasswordFragment()
+                createPasswordFragment.arguments = bundle
+
                 findNavController().navigate(R.id.action_registerFragment_to_createPasswordFragment, bundle)
             }
         }

@@ -13,6 +13,6 @@ interface APIConsumer : DataApi {
     @POST("login/")
     suspend fun login(@Body request: LoginRequest): Response<LoginResponse>
 
-    @POST("/register/")
+    @POST("register/")
     fun register(@Body request: RegisterRequest): Call<Unit>
 }

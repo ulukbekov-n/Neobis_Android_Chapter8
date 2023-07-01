@@ -47,6 +47,10 @@ class CreatePasswordFragment : Fragment() {
         creationPassword()
         checkPassword()
         passwordVisibility()
+        val userName = arguments?.getString("userName")
+        val email = arguments?.getString("email")
+        viewModelHolder.username = userName
+        viewModelHolder.email = email
     }
 
     private fun passwordVisibility() {
@@ -62,7 +66,7 @@ class CreatePasswordFragment : Fragment() {
         val passwordTransformation = if (isPasswordVisible) {
             null
         } else {
-            PasswordTransformationMethod.getInstance() // Show the password as dots
+            PasswordTransformationMethod.getInstance()
         }
 
         val firstInputPassword = binding.createPassword
@@ -180,110 +184,3 @@ class CreatePasswordFragment : Fragment() {
         }
     }
 }
-//import CreatePasswordViewModel
-//import android.os.Bundle
-//import android.text.method.PasswordTransformationMethod
-//import android.view.LayoutInflater
-//import android.view.View
-//import android.view.ViewGroup
-//import android.widget.Button
-//import android.widget.EditText
-//import android.widget.Toast
-//import androidx.fragment.app.Fragment
-//import androidx.fragment.app.viewModels
-//import androidx.navigation.fragment.findNavController
-//import com.example.mobimarket.R
-//import com.example.mobimarket.data.RegisterRequest
-//import com.example.mobimarket.data.RegisterResponse
-//import com.example.mobimarket.databinding.CreatePasswordFragmentBinding
-//import com.example.mobimarket.utils.ApiServiceHelper.apiService
-//import retrofit2.Call
-//import retrofit2.Callback
-//import retrofit2.Response
-//
-//class CreatePasswordFragment : Fragment() {
-//    private lateinit var binding: CreatePasswordFragmentBinding
-//    private lateinit var editTextPassword: EditText
-//    private lateinit var editTextPasswordRepeat: EditText
-//    private lateinit var button: Button
-//    private val viewModel: CreatePasswordViewModel by viewModels()
-//
-//    override fun onCreateView(
-//        inflater: LayoutInflater,
-//        container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        binding = CreatePasswordFragmentBinding.inflate(inflater, container, false)
-//        editTextPassword = binding.createPassword
-//        editTextPasswordRepeat = binding.confirmPassword
-//        button = binding.registerButton
-//
-//        viewModel.isButtonEnabled.observe(viewLifecycleOwner) { isEnabled ->
-//            button.isEnabled = isEnabled
-//            if (isEnabled) {
-//                button.setBackgroundResource(R.drawable.enabled_back)
-//            } else {
-//                button.setBackgroundResource(R.drawable.back)
-//            }
-//        }
-//
-//        button.setOnClickListener {
-//            val password = editTextPassword.text.toString().trim()
-//            val passwordRepeat = editTextPasswordRepeat.text.toString().trim()
-//
-//            if (password.isEmpty() || passwordRepeat.isEmpty()) {
-//                Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_SHORT).show()
-//            } else if (password != passwordRepeat) {
-//                Toast.makeText(context, "Passwords do not match", Toast.LENGTH_SHORT).show()
-//            } else {
-//                viewModel.validatePasswords() // Call validatePasswords() to perform password validation
-//                val userName = arguments?.getString("userName")
-//                val email = arguments?.getString("email")
-//
-//                val registerRequest = RegisterRequest(userName, email, password, passwordRepeat)
-//                val registerCall = apiService.register(registerRequest)
-//                registerCall.enqueue(object : Callback<RegisterResponse> {
-//                    override fun onResponse(call: Call<RegisterResponse>, response: Response<RegisterResponse>) {
-//                        if (response.isSuccessful) {
-//                            val registerResponse = response.body()
-//                            Toast.makeText(context, "Registration successful", Toast.LENGTH_SHORT).show()
-//                            findNavController().navigate(R.id.action_createPasswordFragment_to_profileMainFragment)
-//                        } else {
-//                            val errorMessage = response.errorBody()?.string()
-//                            Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
-//                        }
-//                    }
-//
-//                    override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-//                        Toast.makeText(context, "Registration failed. Please try again later.", Toast.LENGTH_SHORT).show()
-//                    }
-//                })
-//            }
-//        }
-//        binding.passwordBackButton.setOnClickListener {
-//            findNavController().navigate(R.id.action_createPasswordFragment_to_registerFragment)
-//        }
-//
-//        return binding.root
-//    }
-//
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        viewModel.validatePasswords()
-//
-//        val firstInputPassword = binding.createPassword
-//        val secondInputPassword = binding.confirmPassword
-//        var isPasswordVisible = false
-//        val passwordVisibilityButton = binding.showPasswordButton
-//        passwordVisibilityButton.setOnClickListener {
-//            isPasswordVisible = !isPasswordVisible
-//            val passwordTransformation = if (isPasswordVisible) {
-//                null
-//            } else {
-//                PasswordTransformationMethod.getInstance()
-//            }
-//            firstInputPassword.transformationMethod = passwordTransformation
-//            secondInputPassword.transformationMethod = passwordTransformation
-//        }
-//    }
-//}
-//
