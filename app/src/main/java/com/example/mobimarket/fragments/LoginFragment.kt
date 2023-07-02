@@ -1,39 +1,30 @@
 package com.example.mobimarket.fragments
 
+import LoginViewModel
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.mobimarket.R
 import com.example.mobimarket.data.LoginRequest
 import com.example.mobimarket.data.LoginResponse
 import com.example.mobimarket.databinding.LoginFragmentBinding
-import com.example.mobimarket.utils.ApiClient
-import com.example.mobimarket.utils.ApiService
-import com.example.mobimarket.view_model.LoginViewModel
-
+import com.example.mobimarket.utils.RetrofitInstance
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class LoginFragment : Fragment() {
     private lateinit var binding: LoginFragmentBinding
-    private lateinit var editTextUserName: EditText
-    private lateinit var editTextPassword: EditText
-    private lateinit var button: Button
-    private lateinit var textWatcher: TextWatcher
-    private val apiService = ApiClient.createService(ApiService::class.java)
-    private val viewModel: LoginViewModel by lazy {
-        ViewModelProvider(this).get(LoginViewModel::class.java)
-    }
+    private lateinit var viewModel: LoginViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,28 +32,23 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = LoginFragmentBinding.inflate(inflater, container, false)
-        editTextUserName = binding.loginUserName
-        editTextPassword = binding.loginPassword
-        button = binding.loginButton
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        viewModel.isButtonEnabled.observe(viewLifecycleOwner, { isEnabled ->
-            button.isEnabled = isEnabled
-            if (isEnabled) {
-                button.setBackgroundResource(R.drawable.enabled_back)
+        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+
+        binding.loginButton.setOnClickListener {
+            val email = viewModel.emailInput.value
+            val password = viewModel.passwordInput.value
+
+            if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
+                performLogin(email, password)
             } else {
-                button.setBackgroundResource(R.drawable.back)
-            }
-        })
-
-        // Set up the button click listener
-        button.setOnClickListener {
-            val userName = editTextUserName.text.toString().trim()
-            val password = editTextPassword.text.toString().trim()
-            if (userName.isEmpty() || password.isEmpty()) {
-                Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_SHORT).show()
-            } else {
-                loginUser(userName, password)
+                Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 
@@ -70,44 +56,32 @@ class LoginFragment : Fragment() {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
 
-        // Set up the text change listener
-        textWatcher = object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-            override fun afterTextChanged(p0: Editable?) {
-                val userName = editTextUserName.text.toString().trim()
-                val password = editTextPassword.text.toString().trim()
-                viewModel.onUsernameTextChanged(userName)
-                viewModel.onPasswordTextChanged(password)
-            }
-        }
-
-        editTextUserName.addTextChangedListener(textWatcher)
-        editTextPassword.addTextChangedListener(textWatcher)
-
-        return binding.root
+        observeLoginResult()
     }
 
-    private fun loginUser(username: String, password: String) {
-        val loginRequest = LoginRequest(username, password)
-        val loginCall = apiService.login(loginRequest)
-        loginCall.enqueue(object : Callback<LoginResponse> {
-            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
-                if (response.isSuccessful) {
-                    val loginResponse = response.body()
-                    val token = loginResponse?.token
-                    findNavController().navigate(R.id.action_loginFragment_to_mainBottomNavigationFragment)
-                } else {
-                    val errorMessage = response.errorBody()?.string()
-                    Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
-                }
-            }
+    private fun performLogin(email: String, password: String) {
+        val api = RetrofitInstance.apiConsumer
+        val requestBody = LoginRequest(email, password)
 
-            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                Toast.makeText(context, "Login failed. Please try again later.", Toast.LENGTH_SHORT).show()
+        val job = CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val response = api.login(requestBody).await()
+                if (response.isSuccessful) {
+
+                    val loginResponse = response.body()
+                    Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "Login failed", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Toast.makeText(requireContext(), "Login failed: ${e.message}", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun observeLoginResult() {
+        viewModel.isButtonEnabled.observe(viewLifecycleOwner, Observer { isEnabled ->
+            binding.loginButton.isEnabled = isEnabled
         })
     }
 }

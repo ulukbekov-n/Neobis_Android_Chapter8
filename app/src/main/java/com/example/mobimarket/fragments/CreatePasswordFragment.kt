@@ -43,45 +43,48 @@ class CreatePasswordFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        toRegUserPage()
-        creationPassword()
-        checkPassword()
-        passwordVisibility()
+        binding.passwordBackButton.setOnClickListener {
+            findNavController().popBackStack()
+        }
+        binding.registerButton.setOnClickListener {
+            val password = binding.createPassword.text.toString()
+            val cPassword = binding.confirmPassword.text.toString()
+
+            if (password == cPassword) {
+                viewModelHolder.password = password
+                toRegister()
+            } else {
+                Toast.makeText(requireContext(), "Passwords do not match", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+        val inputPassword = binding.createPassword
+        val inputCPassword = binding.confirmPassword
+
+        inputPassword.addTextChangedListener(passwordTextWatcher)
+        inputCPassword.addTextChangedListener(passwordTextWatcher)
+
+        val passwordVisibilityButton = binding.showPasswordButton
+        passwordVisibilityButton.setOnClickListener {
+            isPasswordVisible = !isPasswordVisible
+            val passwordTransformation = if (isPasswordVisible) {
+                null
+            } else {
+                PasswordTransformationMethod.getInstance()
+            }
+
+            val inputPassword = binding.createPassword
+            val inputCPassword = binding.confirmPassword
+            inputPassword.transformationMethod = passwordTransformation
+            inputCPassword.transformationMethod = passwordTransformation
+        }
+
         val userName = arguments?.getString("userName")
         val email = arguments?.getString("email")
         viewModelHolder.username = userName
         viewModelHolder.email = email
     }
 
-    private fun passwordVisibility() {
-
-        val passwordVisibilityButton = binding.showPasswordButton
-        passwordVisibilityButton.setOnClickListener {
-            isPasswordVisible = !isPasswordVisible
-            updatePasswordVisibility()
-        }
-    }
-
-    private fun updatePasswordVisibility() {
-        val passwordTransformation = if (isPasswordVisible) {
-            null
-        } else {
-            PasswordTransformationMethod.getInstance()
-        }
-
-        val firstInputPassword = binding.createPassword
-        val secondInputPassword = binding.confirmPassword
-        firstInputPassword.transformationMethod = passwordTransformation
-        secondInputPassword.transformationMethod = passwordTransformation
-    }
-
-    private fun checkPassword() {
-        val firstInputPassword = binding.createPassword
-        val secondInputPassword = binding.confirmPassword
-
-        firstInputPassword.addTextChangedListener(passwordTextWatcher)
-        secondInputPassword.addTextChangedListener(passwordTextWatcher)
-    }
 
     private val passwordTextWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -92,39 +95,39 @@ class CreatePasswordFragment : Fragment() {
 
         override fun afterTextChanged(s: Editable?) {
 
-            val firstInputPassword = binding.createPassword
-            val secondInputPassword = binding.confirmPassword
-            val password1 = firstInputPassword.text.toString()
-            val password2 = secondInputPassword.text.toString()
+            val inputPassword = binding.createPassword
+            val inputCPassword = binding.confirmPassword
+            val password = inputPassword.text.toString()
+            val cPassword = inputCPassword.text.toString()
 
-            if (password1 == password2) {
-                validatePassword()
-                firstInputPassword.setTextColor(Color.BLACK)
-                secondInputPassword.setTextColor(Color.BLACK)
+            if (password == cPassword) {
+                binding.createPassword.addTextChangedListener { text ->
+                    viewModel.onPasswordTextChanged(text)
+                }
+                binding.confirmPassword.addTextChangedListener { text ->
+                    viewModel.onConfirmPasswordTextChanged(text)
+                }
+                viewModel.isButtonEnabled.observe(viewLifecycleOwner) { isEnabled ->
+                    binding.registerButton.isEnabled = isEnabled
+                    if (isEnabled) {
+                        binding.registerButton.setBackgroundResource(R.drawable.enabled_back)
+                    } else {
+                        binding.registerButton.setBackgroundResource(R.drawable.enabled_back)
+                    }
+
+                }
+                inputPassword.setTextColor(Color.BLACK)
+                inputCPassword.setTextColor(Color.BLACK)
 
             } else {
-                firstInputPassword.setTextColor(Color.RED)
-                secondInputPassword.setTextColor(Color.RED)
+                inputPassword.setTextColor(Color.RED)
+                inputCPassword.setTextColor(Color.RED)
             }
         }
     }
 
-    private fun creationPassword() {
-        binding.registerButton.setOnClickListener {
-            val password1 = binding.createPassword.text.toString()
-            val password2 = binding.confirmPassword.text.toString()
 
-            if (password1 == password2) {
-                viewModelHolder.password = password1
-                registerUser()
-            } else {
-                Toast.makeText(requireContext(), "Passwords do not match", Toast.LENGTH_SHORT)
-                    .show()
-            }
-        }
-    }
-
-    private fun registerUser() {
+    private fun toRegister() {
         val api = RetrofitInstance.apiConsumer
         val requestBody = RegisterRequest(
             username = viewModelHolder.username ?: "",
@@ -145,7 +148,7 @@ class CreatePasswordFragment : Fragment() {
                         "Registered successfully",
                         Toast.LENGTH_SHORT
                     ).show()
-                    findNavController().navigate(R.id.action_createPasswordFragment_to_profileMainFragment)
+                    findNavController().navigate(R.id.action_createPasswordFragment_to_mainBottomNavigationFragment)
                 } else {
                     Toast.makeText(
                         requireContext(),
@@ -160,27 +163,5 @@ class CreatePasswordFragment : Fragment() {
         })
     }
 
-    private fun validatePassword() {
-        binding.createPassword.addTextChangedListener { text ->
-            viewModel.onPasswordTextChanged(text)
-        }
-        binding.confirmPassword.addTextChangedListener { text ->
-            viewModel.onConfirmPasswordTextChanged(text)
-        }
-        viewModel.isButtonEnabled.observe(viewLifecycleOwner) { isEnabled ->
-            binding.registerButton.isEnabled = isEnabled
-            if (isEnabled) {
-                binding.registerButton.setBackgroundResource(R.drawable.enabled_back)
-            } else {
-                binding.registerButton.setBackgroundResource(R.drawable.enabled_back)
-            }
 
-        }
-    }
-
-    private fun toRegUserPage() {
-        binding.passwordBackButton.setOnClickListener {
-            findNavController().navigate(R.id.action_createPasswordFragment_to_registerFragment)
-        }
-    }
 }
