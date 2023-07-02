@@ -4,31 +4,31 @@ import androidx.lifecycle.ViewModel
 
 class CreatePasswordViewModel : ViewModel() {
 
-    private val _passwordInput = MutableLiveData<String>()
-    private val _confirmPasswordInput = MutableLiveData<String>()
+    private val inputPasswords = MutableLiveData<String>()
+    private val inputCPasswords = MutableLiveData<String>()
     private val _isButtonEnabled = MutableLiveData<Boolean>()
 
     val isButtonEnabled: LiveData<Boolean> = _isButtonEnabled
 
     init {
-        _passwordInput.value = ""
-        _confirmPasswordInput.value = ""
+        inputPasswords.value = ""
+        inputCPasswords.value = ""
         validatePasswords()
     }
 
     fun onPasswordTextChanged(text: CharSequence?) {
-        _passwordInput.value = text?.toString()?.trim()
+        inputPasswords.value = text?.toString()?.trim()
         validatePasswords()
     }
 
     fun onConfirmPasswordTextChanged(text: CharSequence?) {
-        _confirmPasswordInput.value = text?.toString()?.trim()
+        inputCPasswords.value = text?.toString()?.trim()
         validatePasswords()
     }
 
-    fun validatePasswords() {
-        val password = _passwordInput.value
-        val confirmPassword = _confirmPasswordInput.value
+    private fun validatePasswords() {
+        val password = inputPasswords.value
+        val confirmPassword = inputCPasswords.value
 
         val isPasswordsValid = isPasswordsMatching(password, confirmPassword)
                 && isPasswordLengthValid(password)
