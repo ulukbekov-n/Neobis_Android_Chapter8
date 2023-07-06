@@ -10,11 +10,7 @@ class CreatePasswordViewModel : ViewModel() {
 
     val isButtonEnabled: LiveData<Boolean> = _isButtonEnabled
 
-    init {
-        inputPasswords.value = ""
-        inputCPasswords.value = ""
-        validatePasswords()
-    }
+
 
     fun onPasswordTextChanged(text: CharSequence?) {
         inputPasswords.value = text?.toString()?.trim()

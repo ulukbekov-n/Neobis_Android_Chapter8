@@ -1,6 +1,6 @@
 package com.example.mobimarket.data
 
 data class LoginRequest(
-    var username: String,
+    var email: String,
     var password: String
 )

@@ -11,8 +11,8 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface APIConsumer : DataApi {
-    @POST("login/")
-    suspend fun login(@Body request: LoginRequest): Deferred<Response<LoginResponse>>
+    @POST("token/")
+    fun login(@Body requestBody: LoginRequest): Response<LoginResponse>
 
     @POST("register/")
     fun register(@Body request: RegisterRequest): Call<Unit>
