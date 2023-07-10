@@ -148,7 +148,7 @@ class CreatePasswordFragment : Fragment() {
                         "Registered successfully",
                         Toast.LENGTH_SHORT
                     ).show()
-                    findNavController().navigate(R.id.action_createPasswordFragment_to_mainBottomNavigationFragment)
+                    findNavController().navigate(R.id.action_createPasswordFragment_to_loginFragment)
                 } else {
                     Toast.makeText(
                         requireContext(),

@@ -80,7 +80,7 @@ class RegisterFragment : Fragment() {
         }
 
         binding.backButton.setOnClickListener {
-            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+            findNavController().popBackStack()
         }
 
         editTextUserName.addTextChangedListener(textWatcher)

@@ -22,7 +22,7 @@ class ChangeProfileFragment:Fragment() {
         }
 
         binding.cancelEditButton.setOnClickListener{
-            findNavController().navigate(R.id.action_changeProfileFragment_to_profileMainFragment)
+            findNavController().popBackStack()
         }
         return binding.root
     }
