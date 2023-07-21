@@ -6,11 +6,11 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.WindowManager
-import com.example.mobimarket.R
-import com.example.mobimarket.databinding.ActivitySplashScreenBinding
+import com.example.namespace.R
+import com.example.namespace.databinding.ActivitySplashScreenBinding
 
 class SplashScreen : AppCompatActivity() {
-    private lateinit var binding:ActivitySplashScreenBinding
+    private lateinit var binding: ActivitySplashScreenBinding
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)

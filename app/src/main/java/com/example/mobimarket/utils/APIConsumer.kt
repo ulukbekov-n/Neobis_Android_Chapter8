@@ -10,7 +10,7 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface APIConsumer : DataApi {
-    @POST("/token/")
+    @POST("login/")
     fun login(@Body requestBody: TokenObtainPairRequest): Response<LoginResponse>
 
     @POST("register/")

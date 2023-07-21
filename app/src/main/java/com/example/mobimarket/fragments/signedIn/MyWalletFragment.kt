@@ -1,11 +1,11 @@
-package com.example.mobimarket.fragments
+package com.example.mobimarket.fragments.signedIn
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.mobimarket.databinding.MyWalletFragmentBinding
+import com.example.namespace.databinding.MyWalletFragmentBinding
 
 class MyWalletFragment : Fragment() {
     private lateinit var binding: MyWalletFragmentBinding

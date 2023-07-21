@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.mobimarket.R
+import com.example.namespace.R
 
 class MainActivity : AppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package com.example.mobimarket.fragments
+package com.example.mobimarket.fragments.signedIn
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,9 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.example.mobimarket.R
-import com.example.mobimarket.databinding.LoginFragmentBinding
 import com.example.mobimarket.view_model.LoginViewModel
+import com.example.namespace.R
+import com.example.namespace.databinding.LoginFragmentBinding
 
 class LoginFragment : Fragment() {
 
@@ -24,7 +24,9 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = LoginFragmentBinding.inflate(inflater, container, false)
-
+        binding.signUpButton.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
         binding.loginButton.setOnClickListener {
             val email = binding.loginUserName.text.toString()
             val password = binding.loginPassword.text.toString()

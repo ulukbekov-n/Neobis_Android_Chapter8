@@ -1,4 +1,4 @@
-package com.example.mobimarket.fragments
+package com.example.mobimarket.fragments.signedIn
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,11 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.mobimarket.R
-import com.example.mobimarket.databinding.AddingNumberFragmentBinding
+
+import com.example.namespace.R
+import com.example.namespace.databinding.AddingNumberFragmentBinding
 
 class AddingNumberFragment:Fragment() {
-    private lateinit var binding:AddingNumberFragmentBinding
+    private lateinit var binding: AddingNumberFragmentBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

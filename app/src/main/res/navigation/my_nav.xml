@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.mobimarket.fragments.LoginFragment"
+        android:name="com.example.mobimarket.fragments.signedIn.LoginFragment"
         android:label="LoginFragment" >
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.mobimarket.fragments.RegisterFragment"
+        android:name="com.example.mobimarket.fragments.register.RegisterFragment"
         android:label="RegisterFragment" >
         <action
             android:id="@+id/action_registerFragment_to_mainBottomNavigationFragment"
@@ -32,11 +32,15 @@
     </fragment>
     <fragment
         android:id="@+id/mainBottomNavigationFragment"
-        android:name="com.example.mobimarket.fragments.MainBottomNavigationFragment"
-        android:label="MainBottomNavigationFragment" />
+        android:name="com.example.mobimarket.fragments.signedIn.MainBottomNavigationFragment"
+        android:label="MainBottomNavigationFragment" >
+        <action
+            android:id="@+id/action_mainBottomNavigationFragment_to_addProductFragment"
+            app:destination="@id/addProductFragment" />
+    </fragment>
     <fragment
         android:id="@+id/createPasswordFragment"
-        android:name="com.example.mobimarket.fragments.CreatePasswordFragment"
+        android:name="com.example.mobimarket.fragments.register.CreatePasswordFragment"
         android:label="CreatePasswordFragment" >
         <action
             android:id="@+id/action_createPasswordFragment_to_registerFragment"
@@ -53,7 +57,7 @@
     </fragment>
     <fragment
         android:id="@+id/changeProfileFragment"
-        android:name="com.example.mobimarket.fragments.ChangeProfileFragment"
+        android:name="com.example.mobimarket.fragments.profile.ChangeProfileFragment"
         android:label="ChangeProfileFragment" >
         <action
             android:id="@+id/action_changeProfileFragment_to_profileMainFragment"
@@ -64,7 +68,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileMainFragment"
-        android:name="com.example.mobimarket.fragments.ProfileMainFragment"
+        android:name="com.example.mobimarket.fragments.profile.ProfileMainFragment"
         android:label="ProfileMainFragment" >
         <action
             android:id="@+id/action_profileMainFragment_to_changeProfileFragment"
@@ -75,7 +79,7 @@
     </fragment>
     <fragment
         android:id="@+id/addingNumberFragment"
-        android:name="com.example.mobimarket.fragments.AddingNumberFragment"
+        android:name="com.example.mobimarket.fragments.signedIn.AddingNumberFragment"
         android:label="AddingNumberFragment" >
         <action
             android:id="@+id/action_addingNumberFragment_to_changeProfileFragment"
@@ -83,10 +87,38 @@
     </fragment>
     <fragment
         android:id="@+id/myChatsFragment"
-        android:name="com.example.mobimarket.fragments.MyChatsFragment"
+        android:name="com.example.mobimarket.fragments.signedIn.MyChatsFragment"
         android:label="MyChatsFragment" />
     <fragment
         android:id="@+id/myWalletFragment"
-        android:name="com.example.mobimarket.fragments.MyWalletFragment"
+        android:name="com.example.mobimarket.fragments.signedIn.MyWalletFragment"
         android:label="MyWalletFragment" />
+    <fragment
+        android:id="@+id/addProductFragment"
+        android:name="com.example.mobimarket.fragments.addProducts.AddProductFragment"
+        android:label="AddProductFragment" >
+        <action
+            android:id="@+id/action_addProductFragment_to_mainBottomNavigationFragment"
+            app:destination="@id/mainBottomNavigationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myProductsFragment2"
+        android:name="com.example.mobimarket.fragments.products.MyProductsFragment"
+        android:label="MyProductsFragment" >
+        <action
+            android:id="@+id/action_myProductsFragment2_to_itemViewFragment"
+            app:destination="@id/itemViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemViewFragment"
+        android:name="com.example.mobimarket.fragments.products.ItemViewFragment"
+        android:label="Item View"
+        tools:layout="@layout/item_view_fragment">
+    <argument
+        android:name="product"
+        app:argType="com.example.mobimarket.data.Product" />
+        <action
+            android:id="@+id/action_itemViewFragment_to_myProductsFragment2"
+            app:destination="@id/myProductsFragment2" />
+    </fragment>
 </navigation>

@@ -1,4 +1,4 @@
-package com.example.mobimarket.fragments
+package com.example.mobimarket.fragments.register
 
 import CreatePasswordViewModel
 import android.graphics.Color
@@ -15,11 +15,12 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.mobimarket.R
 import com.example.mobimarket.data.RegisterRequest
-import com.example.mobimarket.databinding.CreatePasswordFragmentBinding
+
 import com.example.mobimarket.utils.RetrofitInstance
 import com.example.mobimarket.view_model.UserViewModel
+import com.example.namespace.R
+import com.example.namespace.databinding.CreatePasswordFragmentBinding
 
 import retrofit2.Call
 import retrofit2.Callback
@@ -148,7 +149,7 @@ class CreatePasswordFragment : Fragment() {
                         "Registered successfully",
                         Toast.LENGTH_SHORT
                     ).show()
-                    findNavController().navigate(R.id.action_createPasswordFragment_to_loginFragment)
+                    findNavController().navigate(R.id.action_createPasswordFragment_to_mainBottomNavigationFragment)
                 } else {
                     Toast.makeText(
                         requireContext(),

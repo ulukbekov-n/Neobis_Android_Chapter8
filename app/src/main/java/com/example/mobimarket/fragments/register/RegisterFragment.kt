@@ -1,4 +1,4 @@
-package com.example.mobimarket.fragments
+package com.example.mobimarket.fragments.register
 
 import android.os.Bundle
 import android.text.Editable
@@ -13,9 +13,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.mobimarket.R
-import com.example.mobimarket.databinding.RegisterFragmentBinding
+import com.example.mobimarket.utils.UserHolder
 import com.example.mobimarket.view_model.RegisterViewModel
+import com.example.namespace.R
+import com.example.namespace.databinding.RegisterFragmentBinding
 
 class RegisterFragment : Fragment() {
     private lateinit var binding: RegisterFragmentBinding
@@ -74,6 +75,8 @@ class RegisterFragment : Fragment() {
                 }
                 val createPasswordFragment = CreatePasswordFragment()
                 createPasswordFragment.arguments = bundle
+                UserHolder.username = userName
+                UserHolder.email = email
 
                 findNavController().navigate(R.id.action_registerFragment_to_createPasswordFragment, bundle)
             }

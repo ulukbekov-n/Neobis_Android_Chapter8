@@ -1,4 +1,4 @@
-package com.example.mobimarket.fragments
+package com.example.mobimarket.fragments.signedIn
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.mobimarket.R
-import com.example.mobimarket.databinding.MainBottomNavigationFragmentBinding
+import com.example.namespace.R
+import com.example.namespace.databinding.MainBottomNavigationFragmentBinding
 
 class MainBottomNavigationFragment:Fragment() {
     private lateinit var binding:MainBottomNavigationFragmentBinding
@@ -21,30 +21,16 @@ class MainBottomNavigationFragment:Fragment() {
 
         binding = MainBottomNavigationFragmentBinding.inflate(inflater,container,false)
         binding.bottomNav.background = null
-//        binding.bottomNav.setOnItemSelectedListener{
-//            when(it.itemId){
-//                R.id.myHome ->replaceFragment(RegisterFragment())
-//                R.id.myWallet ->replaceFragment(MyWalletFragment())
-//                R.id.myChat ->replaceFragment(MyChatsFragment())
-//                R.id.myProfile ->replaceFragment(ProfileMainFragment())
-//
-//                else->{
-//
-//                }
-//            }
-//            true
-//        }
+
+
         val bottomNavigationView = binding.bottomNav
         val navHostFragment = childFragmentManager.findFragmentById(R.id.fragmentContainerView2) as NavHostFragment
         val navController = navHostFragment.navController
         bottomNavigationView.setupWithNavController(navController)
+        binding.fab.setOnClickListener{
+            findNavController().navigate(R.id.action_mainBottomNavigationFragment_to_addProductFragment)
+        }
         return binding.root
     }
 
-//    private fun replaceFragment(fragment: Fragment) {
-//        val fragmentManager = childFragmentManager
-//        val fragmentTransaction = fragmentManager.beginTransaction()
-//        fragmentTransaction.replace(R.id.frameLayout, fragment)
-//        fragmentTransaction.commit()
-//    }
 }
